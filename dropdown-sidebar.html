@@ -1,0 +1,76 @@
+<aside class="cart-sidebar">
+    <div class="cart-sidebar-content">
+        <div class="cartMenu   col-xs-12 no-margin-no-padding  ">
+            <div class="cart-sidebar-header">
+                <h3>Your Bag </h3>
+                <div class="cart-close-trigger">
+                    <button class="close" type="button">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <!--alternate view if shopping cart is empty-->
+            <div ng-if="SideCartCtrl.shoppingCart.length===0" class="hidden-if">
+                <hr>
+                <p style="text-align: center">Your bag is currently empty.</p>
+                <hr>
+            </div>
+            <div class="w100  scroll-pane">
+                <!-- ======================================================== -->
+                <!-- ng technology used displaying campain details -->
+                <!-- ======================================================== -->
+                <table>
+                    <tbody>
+                        <tr class="miniCartProduct" ng-repeat="item in SideCartCtrl.shoppingCart">
+                            <td class="miniCartProductThumb">
+                                    <thumbnail ui-sref=".campaigns.details({ id: item.campaign._id })" key="item.campaign.campaign_picture_key"></thumbnail>
+                                    <!--<a ui-sref="^.campaigns.details({ id: campaign._id })"><img ng-src="{{item.campaign.campaign_picture}}" alt="img"></a>-->
+                            </td>
+                            <td>
+                                <div class="miniCartDescription">
+                                    <h4><b><a ui-sref="^.campaigns.details({ id: campaign._id })">{{item.campaign.name}}</a></b></h4>
+                                    <span class="paperType">{{item.campaign.options.paper_type}}</span>
+                                    <span class="size">{{item.campaign.options.size}} </span>
+                                    <div>
+                                        <h4 ng-style="item.campaign.days_remaining == 'ended' && {'color': 'red'} || item.campaign.days_remaining <= 3 && {'color': 'orange'} || {'color':'green'}"><b>{{item.campaign.days_remaining | uppercase}} <span ng-if="item.campaign.days_remaining != 'ended'">Days Remaining</span></b></h4>
+                                    </div>
+                                    <div class="price"><span> {{item.campaign.price | currency}} </span> <span class="quantity">Qty: {{item.quantity}} </span>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                            <td class="delete">
+                                <button type="button" class="close" ng-click="SideCartCtrl.removeItem($index,item.campaign._id)"><span aria-hidden="true">×</span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--/.scroll-pane-->
+
+            <div class="miniCartFooter cart-panel-footer clearfix">
+
+                <h3 class="text-right subtotal" ng-class="SideCartCtrl._getTotal()"> Subtotal: {{SideCartCtrl.total | currency}} </h3>
+
+                <div class="col-sm-6 ">
+                    <a class="btn btn-danger  btn-block" ui-sref="public.cart.main">
+                        <i class="fa fa-shopping-cart"> </i> VIEW CART </a>
+                </div>
+
+                <div class="col-sm-6 ">
+
+                    <a class="btn  btn-primary btn-block ">
+                        CHECKOUT </a>
+
+                </div>
+            </div>
+
+            <!--/.miniCartFooter-->
+
+        </div>
+        <!--/.cartMenu-->
+
+    </div>
+    <!--.cart-sidebar-content-->
+</aside>

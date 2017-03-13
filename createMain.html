@@ -1,0 +1,64 @@
+<!-- /.Fixed navbar  -->
+<div class="container main-container headerOffset">
+    <div class="row">
+        <div class="breadcrumbDiv col-lg-12">
+            <ul class="breadcrumb">
+                <li><a ui-sref="public.landing">Home</a></li>
+                <li><a ui-sref="public.campaigns">Collabs</a></li>
+                <li class="active"> Create</li>
+            </ul>
+        </div>
+    </div>
+    <!--/.row-->
+    <div class="row col-lg-12">
+        <div class="col-lg-6 col-md-6 col-sm-5">
+            <div class="row userInfo">
+                <!--<div class="col-xs-12 col-sm-12">-->
+                <div class="w100 clearfix">
+                    <ul class="orderStep orderStepLook2">
+                        <li ui-sref-active="{'active': '.upload'}" style="width:33%">
+                            <a ui-sref=".upload({campaign: CampaignWizCtrl.campaign})"> <i class="glyphicon glyphicon-upload"></i> <span> Upload</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="{'active': '.goal'}" style="width:33%"><a ui-sref=".goal({campaign: CampaignWizCtrl.campaign})"><i class="fa fa-money"> </i><span>Goal</span> </a></li>
+                        <li ui-sref-active="{'active': '.detail'}" style="width:33%"><a ui-sref=".detail({campaign: CampaignWizCtrl.campaign})"><i class="fa fa-check-square"> </i><span>Details</span></a>
+                        </li>
+                    </ul>
+                    <!--/.orderStep end-->
+                </div>
+                <!--</div>-->
+            </div>
+            <div ui-view="subContent"></div>
+        </div>
+       <div ng-if="CampaignWizCtrl.showSpinner" class="col-lg-6 col-md-6 col-sm-5" >
+                <i class="fa fa-spinner fa-spin" style="position: absolute; top: 100px; right: 50%"></i>
+       </div>
+        <div ng-show="CampaignWizCtrl.show" class="col-lg-6 col-md-6 col-sm-6 pull-right" style="padding-right:0px">
+            <photo></photo>
+            <div>
+                <img ng-src="{{CampaignWizCtrl.campaign.campaign_picture || ''}}" ng-hide="CampaignWizCtrl.campaign.campaign_picture"  id='imageId' ng-model="CampaignWizCtrl.campaign.campaign_picture" name="campaign_picture" style="width: 100%; align-content: center; border: 4px ridge rgba(0, 0, 0, 0.1)"
+                /><br>
+
+                <a href="#" ng-click="CampaignWizCtrl.preview($event)">
+                    <p style="text-align: center" ng-hide="CampaignWizCtrl.campaign.campaign_picture">Full Preview</p>
+
+                </a>
+            </div>
+        </div>
+        <!--</div>-->
+    </div>
+    <!--/.row-->
+    <!--Preview image modal-->
+    <div class="modal fade in" id="imagePreview-modal" tabindex="-1" role="dialog" modal-render="true" uib-modal-animation-class="fade" modal-in-class="in" uib-modal-window="modal-window" style="left:18%;width:65%;" ng-show="CampaignWizCtrl.pictureModal">
+        <div class="modal-dialog" style="margin: 0 auto">
+            <div class="modal-content">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" ng-click="CampaignWizCtrl.hidePicModal()"> ×</button>
+                <div>
+                    <img src="{{CampaignWizCtrl.imageSrc}}" style="width:100%;border: 4px ridge rgba(0, 0, 0, 0.1)">
+                </div>
+                <div class="clear"></div>
+                <!--/.modal-content-->
+            </div>
+            <!--/.modal-content-->
+        </div>
+    </div>
